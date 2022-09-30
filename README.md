@@ -15,6 +15,7 @@ See the full [API docs](https://hexdocs.pm/snap).
 - Streaming bulk operations
 - Connection pooling
 - Telemetry events
+- High level interface over the [Multi Search API](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-multi-search.html)
 
 ## Installation
 
@@ -24,8 +25,8 @@ The package can be installed by adding `snap` to your list of dependencies in
 ```elixir
 def deps do
   [
-    {:snap, "~> 0.6"},
-    {:finch, "~> 0.8"}, # By default, Snap uses Finch to make HTTP requests
+    {:snap, "~> 0.7"},
+    {:finch, "~> 0.13"}, # By default, Snap uses Finch to make HTTP requests
   ]
 end
 ```
