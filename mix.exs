@@ -2,7 +2,7 @@ defmodule Snap.MixProject do
   use Mix.Project
 
   @github_url "https://github.com/breakroom/snap"
-  @version "0.6.0"
+  @version "0.8.0"
 
   def project do
     [
@@ -58,7 +58,7 @@ defmodule Snap.MixProject do
       {:finch, "~> 0.8", optional: true},
       {:castore, "~> 0.1"},
       {:jason, "~> 1.0"},
-      {:telemetry, "~> 0.4"},
+      {:telemetry, "~> 1.0 or ~> 0.4"},
       {:ex_doc, "~> 0.23", only: :dev, runtime: false},
       {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false}
@@ -101,6 +101,10 @@ defmodule Snap.MixProject do
           Snap.Bulk.Action.Index,
           Snap.Bulk.Action.Update,
           Snap.Bulk.Action.Delete
+        ],
+        "Multi search API": [
+          Snap.Multi,
+          Snap.Multi.Response
         ],
         "Response structs": [
           Snap.SearchResponse,
