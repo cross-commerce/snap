@@ -38,7 +38,7 @@ defmodule Snap.Cluster do
       Returns the config map that the Cluster was defined with.
       """
       def config() do
-        Supervisor.config(__MODULE__)
+        Supervisor.config(__MODULE__, unquote(opts[:otp_app]))
       end
 
       @doc """
@@ -78,6 +78,7 @@ defmodule Snap.Cluster do
 
         {:ok, config} = init(config)
 
+        Snap.Config.put_env_config(otp_app, __MODULE__, config)
         Supervisor.start_link(__MODULE__, otp_app, config)
       end
     end

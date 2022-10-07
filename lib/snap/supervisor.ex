@@ -9,8 +9,8 @@ defmodule Snap.Cluster.Supervisor do
     Supervisor.start_link(__MODULE__, {cluster, otp_app, config}, name: cluster)
   end
 
-  def config(cluster) do
-    Snap.Config.get(config_name(cluster))
+  def config(cluster, otp_app) do
+    Snap.Config.get(cluster, otp_app)
   end
 
   ## Callbacks
@@ -18,16 +18,9 @@ defmodule Snap.Cluster.Supervisor do
   @doc false
   @impl Supervisor
   def init({cluster, _otp_app, config}) do
-    children =
-      [
-        {Snap.Config, {config_name(cluster), config}}
-      ] ++ maybe_initialize_http_client(cluster, config)
+    children = maybe_initialize_http_client(cluster, config)
 
     Supervisor.init(children, strategy: :one_for_one)
-  end
-
-  defp config_name(cluster) do
-    Module.concat(cluster, Config)
   end
 
   defp maybe_initialize_http_client(cluster, config) do
