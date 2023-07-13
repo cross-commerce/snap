@@ -51,7 +51,13 @@ defmodule Snap.HTTPClient do
   def child_spec(config) do
     {adapter, adapter_config} = adapter(config)
 
-    adapter.child_spec(config ++ adapter_config)
+    _ = Code.ensure_loaded(adapter)
+
+    if function_exported?(adapter, :child_spec, 1) do
+      adapter.child_spec(config ++ adapter_config)
+    else
+      :skip
+    end
   end
 
   def request(cluster, method, url, headers, body, opts \\ []) do
